@@ -1,0 +1,57 @@
+[32m2024-07-18 16:02:28 -0400[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1efb7353-df27-434b-a2dd-72bf089069cf - 237227 - LOGS_CAPTURED - Started capturing logs in process (pid: 237227).
+[32m2024-07-18 16:02:28 -0400[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1efb7353-df27-434b-a2dd-72bf089069cf - 237227 - my_assets - STEP_START - Started execution of step "my_assets".
+[32m2024-07-18 16:02:28 -0400[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1efb7353-df27-434b-a2dd-72bf089069cf - my_assets - Replication config: {'source': 'ORACLE_DEV', 'target': 'SNOWFLAKE_DEV', 'defaults': {'mode': 'full-refresh', 'object': '{stream_schema}_{stream_table}'}, 'streams': {'SYSADM8.PS_BI_ACCT_ENTRY': {'object': 'ARTEMIS.___MIGRATION_STG.PEOPLESOFT_DEV_PS_BI_ACCT_ENTRY'}}}
+[32m2024-07-18 16:02:28 -0400[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1efb7353-df27-434b-a2dd-72bf089069cf - my_assets - Running Sling replication with command: /home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/sling_linux_amd64/bin/sling-linux-amd64 run  -r /tmp/sling-replication-d497413e-9659-4f75-ba41-210cf1f9542b.json
+[32m2024-07-18 16:02:32 -0400[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 1efb7353-df27-434b-a2dd-72bf089069cf - 237227 - my_assets - STEP_FAILURE - Execution of step "my_assets" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "my_assets"::
+
+Exception: [90m4:02PM[0m [32mINF[0m Sling Replication [1 streams] | ORACLE_DEV -> SNOWFLAKE_DEV
+
+[90m4:02PM[0m [32mINF[0m [1 / 1] running stream SYSADM8.PS_BI_ACCT_ENTRY
+[90m4:02PM[0m [31mWRN[0m could not parse DEBUGINFOD_URLS: could not parse provided credentials / url
+[90m4:02PM[0m [32mINF[0m connecting to source database (oracle)
+[90m4:02PM[0m [32mINF[0m connecting to target database (snowflake)
+[90m4:02PM[0m [32mINF[0m reading from source database
+[90m4:02PM[0m [32mINF[0m writing to target database [mode: full-refresh]
+[90m4:02PM[0m [32mINF[0m [31mexecution failed[0m
+[90m4:02PM[0m [32mINF[0m [31m~ Error executing [tx: false] create schema "___MIGRATION_STG"
+003001 (42501): SQL access control error:
+Insufficient privileges to operate on database 'ARTEMIS'[0m
+
+[90m4:02PM[0m [32mINF[0m Sling Replication Completed in 3s | ORACLE_DEV -> SNOWFLAKE_DEV | [32m0 Successes[0m | [31m1 Failures[0m
+
+
+[31mfatal:
+~ failure running replication (see docs @ https://docs.slingdata.io/sling-cli)
+--------------------------- SYSADM8.PS_BI_ACCT_ENTRY ---------------------------
+~ Error executing [tx: false] create schema "___MIGRATION_STG"
+003001 (42501): SQL access control error:
+Insufficient privileges to operate on database 'ARTEMIS'[0m
+Sling command failed:
+[]
+
+Stack Trace:
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/dagster/_core/execution/plan/utils.py", line 54, in op_execution_error_boundary
+    yield
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/dagster/_utils/__init__.py", line 468, in iterate_with_context
+    next_output = next(iterator)
+                  ^^^^^^^^^^^^^^
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/quickstart_snowflake/quickstart_snowflake/assets/assets.py", line 66, in my_assets
+    yield from sling.replicate(context=context)
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/dagster_embedded_elt/sling/resources.py", line 480, in replicate
+    results = sling._run(  # noqa
+              ^^^^^^^^^^^^^^^^^^^
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/sling/__init__.py", line 465, in _run
+    raise Exception('\n'.join(lines))
+
+The above exception occurred during handling of the following exception:
+Exception: Sling command failed:
+[]
+
+Stack Trace:
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/sling/__init__.py", line 452, in _run
+    for line in _exec_cmd(cmd, env=env, stdin=stdin):
+  File "/home/floyd/Work2/TechnicalDifficultiesLLC/SDI_Cases/PS_SF_Dagster/lib/python3.12/site-packages/sling/__init__.py", line 520, in _exec_cmd
+    raise Exception(f'Sling command failed:\n{lines}')
+[0m
