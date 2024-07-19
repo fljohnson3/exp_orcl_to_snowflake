@@ -45,7 +45,7 @@ target = SlingConnectionResource(
             role="ACCOUNTADMIN"
 )
 
-sling = SlingResource(
+tsling = SlingResource(
     connections=[
         source,
         target,
@@ -54,7 +54,7 @@ sling = SlingResource(
 replication_config = {
     "source": "ORACLE_DEV",
     "target": "SNOWFLAKE_DEV",
-    "defaults": {"mode": "full-refresh", "object": "{stream_schema}_{stream_table}"},
+    "defaults": {"mode": "incremental", "update_key":"accounting_dt","object": "{stream_schema}_{stream_table}"},
     "streams": {
         "SYSADM8.PS_BI_ACCT_ENTRY": {"object": "ARTEMIS.___MIGRATION_STG.PEOPLESOFT_DEV_PS_BI_ACCT_ENTRY"},
     },
@@ -63,4 +63,4 @@ replication_config = {
 
 @sling_assets(replication_config=replication_config)
 def my_assets(context, sling: SlingResource):
-    yield from sling.replicate(context=context)
+    yield from tsling.replicate(context=context)
