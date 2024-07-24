@@ -1,0 +1,7 @@
+dagster==1.7.13
+dagster-embedded-elt==0.23.13
+dagster-graphql==1.7.13
+dagster-pipes==1.7.13
+dagster-snowflake==0.23.13
+dagster-snowflake-pandas==0.23.13
+dagster-webserver==1.7.13
