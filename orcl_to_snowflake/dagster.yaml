@@ -1,0 +1,6 @@
+# for higher dequeue throughput, threading can be enabled:
+run_coordinator:
+  module: dagster.core.run_coordinator
+  class: QueuedRunCoordinator
+  config:
+    max_concurrent_runs: 2

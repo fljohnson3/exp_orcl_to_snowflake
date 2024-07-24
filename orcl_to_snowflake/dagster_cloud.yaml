@@ -1,0 +1,5 @@
+locations:
+  - location_name: orcl_to_snowflake
+    code_source:
+      package_name: orcl_to_snowflake
+
