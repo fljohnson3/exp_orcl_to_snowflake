@@ -3,6 +3,7 @@ from dagster_embedded_elt.sling import (
     SlingResource,
     sling_assets
 )
+import json
 import datetime
 from dagster import BackfillPolicy, MonthlyPartitionsDefinition, HourlyPartitionsDefinition,TimeWindowPartitionsDefinition
 
@@ -26,12 +27,13 @@ from dagster import BackfillPolicy, MonthlyPartitionsDefinition, HourlyPartition
 
 #     ]
 # )
-
+with open('/etc/PythonConfig/config.json') as config_file: 
+    settings = json.load(config_file)
 source = SlingConnectionResource(
             name="ORACLE_DEV",
             type="oracle",
             host='192.168.233.135',
-            password='af!J2Y47hG',
+            password=settings['password_Oracle'],
             port='1521',
             service_name='devl.fdevdba3.sdidcnet.oraclevcn.com',
             user='SDIRPA'
@@ -40,10 +42,10 @@ source = SlingConnectionResource(
 target = SlingConnectionResource(
             name="SNOWFLAKE_DEV",
             type="snowflake",
-            user='mwilliams',
-            account='VL04224.east-us-2.azure',
+            user=settings['snowflake_conn']['sf_user'],
+            account=settings['snowflake_conn']['sf_acct'],
             database='ARTEMIS',
-            password='Snowball88$$',
+            password=settings['snowflake_conn']['sf_pwd'],
             role="ACCOUNTADMIN"
 )
 
