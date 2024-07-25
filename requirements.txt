@@ -1,3 +1,5 @@
+snowflake-connector-python==3.11.0
+oracledb==2.3.0
 dagster==1.7.13
 dagster-embedded-elt==0.23.13
 dagster-graphql==1.7.13
