@@ -55,7 +55,7 @@ test_sling = SlingResource(
         target,
     ]
 )
-#Not yet worked out
+
 test_partitions = MonthlyPartitionsDefinition(start_date="1998-08-10",fmt="%Y-%m-%d")
 
 # test_partitions = TimeWindowPartitionsDefinition(start=datetime.datetime(2024,7,22,12,55), fmt="%Y-%m-%dT%HH_%MM", end=datetime.datetime(2024,7,22,13,55), schedule_type=None,

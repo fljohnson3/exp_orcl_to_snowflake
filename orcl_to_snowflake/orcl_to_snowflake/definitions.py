@@ -25,6 +25,7 @@ defs = Definitions(
             database="ARTEMIS",
             password="Snowball88$$",
             user="mwilliams",
+            role="ACCOUNTADMIN"
         ),
         "sling": SlingResource(
             type="oracle",
